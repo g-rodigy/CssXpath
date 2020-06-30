@@ -98,6 +98,11 @@ class CssXpath
                 $strings[] = '[contains(text(), "'.$matches[1].'")]';
                 return '[{'.(count($strings)-1).'}]';
             }),
+            // :text(foo) // a custon thing, match only specified text
+            array('/:text\((.*?)\)/', function ($matches) use (&$strings) {
+		$strings[] = '[text()="'.$matches[1].'"]';
+            	return '[{'.(count($strings)-1).'}]';
+            }),
             array('/([\s]?):not\((.*?)\)/', function ($matches) use (&$strings) {
                 // this currently works for simple :not(.classname)
                 // unsure of other selectors
